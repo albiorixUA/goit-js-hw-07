@@ -2,16 +2,26 @@ import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
 const galleryItemsContainer = document.querySelector(".gallery");
-const makeGalleryMarkup = (gallery) => {
-  const { preview, original, description } = gallery;
-  return `
-    <a class="gallery__item" href=${original}>
-  <img class="gallery__image" src=${preview} alt=${description} />
-</a>`;
-};
 
-const galleryMarkup = galleryItems.map(makeGalleryMarkup).join("");
-galleryItemsContainer.innerHTML = galleryMarkup;
+const galleryMarkup = makeGalleryMarkup(galleryItems);
+addgalleryMarkuptoHtml(galleryMarkup);
+
+function makeGalleryMarkup(pictures) {
+  return pictures
+    .map(
+      ({
+        preview,
+        original,
+        description,
+      }) => `<a class="gallery__item" href=${original}>
+  <img class="gallery__image" src=${preview} alt=${description} /></a>`
+    )
+    .join("");
+}
+
+function addgalleryMarkuptoHtml(markup) {
+  galleryItemsContainer.innerHTML = markup;
+}
 
 new SimpleLightbox(".gallery a", {
   captionsData: "alt",
